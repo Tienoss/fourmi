@@ -1,0 +1,6 @@
+c:\users\etienne\documents\visual studio 2012\Projects\Fourmi\Fourmi\bin\Debug\Fourmi.exe.config
+c:\users\etienne\documents\visual studio 2012\Projects\Fourmi\Fourmi\bin\Debug\Fourmi.exe
+c:\users\etienne\documents\visual studio 2012\Projects\Fourmi\Fourmi\bin\Debug\Fourmi.pdb
+c:\users\etienne\documents\visual studio 2012\Projects\Fourmi\Fourmi\obj\Debug\Fourmi.csprojResolveAssemblyReference.cache
+c:\users\etienne\documents\visual studio 2012\Projects\Fourmi\Fourmi\obj\Debug\Fourmi.exe
+c:\users\etienne\documents\visual studio 2012\Projects\Fourmi\Fourmi\obj\Debug\Fourmi.pdb
