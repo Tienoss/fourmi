@@ -25,6 +25,7 @@ namespace Fourmi
             this.sommet1 = sommet1;
             this.sommet2 = sommet2;
             this.temps = temps;
+            this.pheromone = 0;
         }
 
 

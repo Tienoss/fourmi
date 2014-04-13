@@ -8,6 +8,7 @@ namespace Fourmi
 {
     class Sommet
     {
+        public List<Sommet> listSommet;
         
         private int id;
         private string nom;
@@ -38,6 +39,11 @@ namespace Fourmi
             this.id = id;
             this.coordX = coordX;
             this.coordY = coordY;
+        }
+
+        public List<Sommet> getListSommet()
+        {
+            return listSommet;
         }
     }
 }

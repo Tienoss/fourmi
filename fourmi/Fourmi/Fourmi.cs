@@ -8,11 +8,18 @@ namespace Fourmi
 {
     class Fourmi
     {
-        private List<Arc> listArc = new List<Arc>();
+        private List<Arc> listChemin;
         
 
         public Fourmi() { }
 
+        public Sommet getNextSommet(Sommet sommet)
+        {
+            Sommet nextSommet = new Sommet();
+
+
+            return nextSommet;
+        }
 
     }
 }

@@ -15,8 +15,10 @@ namespace Fourmi
             List<Sommet> listCoord = new List<Sommet>();
             List<Arc> listArc = new List<Arc>();
 
+            #region Récupération des données
+
             //Création de la liste des sommets et de leur noms
-            StreamReader reader = new StreamReader(File.OpenRead("csv/sommets-noms.csv"));
+            StreamReader reader = new StreamReader(File.OpenRead("../../csv/sommets-noms.csv"));
             
             int count = 0;
             while (!reader.EndOfStream)
@@ -34,7 +36,7 @@ namespace Fourmi
             }
 
             //Ajout des coordonnées aux différents sommets
-            StreamReader readerCoord = new StreamReader(File.OpenRead("csv/sommets-coordonnees.csv"));
+            StreamReader readerCoord = new StreamReader(File.OpenRead("../../csv/sommets-coordonnees.csv"));
             count = 0;
             while (!readerCoord.EndOfStream)
             {
@@ -60,7 +62,7 @@ namespace Fourmi
             Sommet sommet2;
             Arc arc;
 
-            StreamReader readerArc = new StreamReader(File.OpenRead("csv/valeurs-arcs.csv"));
+            StreamReader readerArc = new StreamReader(File.OpenRead("../../csv/valeurs-arcs.csv"));
             count = 0;
             while (!readerArc.EndOfStream)
             {
@@ -79,7 +81,7 @@ namespace Fourmi
             }
 
             //Ajout des temps de trajet à pied
-            StreamReader readerArc2 = new StreamReader(File.OpenRead("csv/temps.csv"));
+            StreamReader readerArc2 = new StreamReader(File.OpenRead("../../csv/temps.csv"));
             count = 0;
             arc = null;
             while (!readerArc2.EndOfStream)
@@ -107,10 +109,29 @@ namespace Fourmi
             }*/
 
             //Affichage de la liste des arcs
-            foreach (Arc ar in listArc)
-            /*{
+            /*foreach (Arc ar in listArc)
+            {
                 Console.WriteLine("s1: " + ar.getSommet1().getId() + ":" + ar.getSommet1().getNom() + " - s2: " + ar.getSommet2().getId() + ":" + ar.getSommet2().getNom() + " - tps: " + ar.getTemps());
             }*/
+
+            #endregion
+
+            #region 
+
+            // Choisir 2 sommets au hasard, 375 sommets en tout
+            Random rdm = new Random(unchecked((int)DateTime.Now.Ticks));
+            int idSommet1 = rdm.Next(0, 375);
+            int idSommet2 = rdm.Next(0, 375);
+
+
+
+            #endregion
+
+            //roue biaisée
+
+
         }
+
+        
     }
 }
