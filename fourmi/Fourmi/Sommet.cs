@@ -45,5 +45,15 @@ namespace Fourmi
         {
             return listSommet;
         }
+
+        public void setSommet(Sommet sommet)
+        {
+            this.listSommet.Add(sommet);
+        }
+
+        public bool removeSommet(Sommet sommet)
+        {
+            return this.listSommet.Remove(sommet);
+        }
     }
 }

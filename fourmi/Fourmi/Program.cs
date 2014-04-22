@@ -127,7 +127,7 @@ namespace Fourmi
 
             #endregion
 
-            //roue biaisée
+            //roue biaisée - sélection du chemin
 
 
         }
