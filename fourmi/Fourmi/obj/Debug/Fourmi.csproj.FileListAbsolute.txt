@@ -10,3 +10,9 @@ C:\Users\Etienne\Documents\Git\fourmi\fourmi\Fourmi\obj\Debug\Fourmi.pdb
 C:\Users\Etienne\Documents\Git\fourmi\fourmi\Fourmi\obj\Debug\Fourmi.csprojResolveAssemblyReference.cache
 C:\Users\Etienne\Documents\Git\fourmi\fourmi\Fourmi\bin\Debug\Fourmi.exe
 C:\Users\Etienne\Documents\Git\fourmi\fourmi\Fourmi\bin\Debug\Fourmi.pdb
+D:\epsi4\probleme complexe\fourmis\fourmi\fourmi\Fourmi\bin\Debug\Fourmi.exe.config
+D:\epsi4\probleme complexe\fourmis\fourmi\fourmi\Fourmi\obj\Debug\Fourmi.exe
+D:\epsi4\probleme complexe\fourmis\fourmi\fourmi\Fourmi\obj\Debug\Fourmi.pdb
+D:\epsi4\probleme complexe\fourmis\fourmi\fourmi\Fourmi\bin\Debug\Fourmi.exe
+D:\epsi4\probleme complexe\fourmis\fourmi\fourmi\Fourmi\bin\Debug\Fourmi.pdb
+D:\epsi4\probleme complexe\fourmis\fourmi\fourmi\Fourmi\obj\Debug\Fourmi.csprojResolveAssemblyReference.cache

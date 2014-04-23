@@ -14,6 +14,10 @@ namespace Fourmi
             listChemin = new List<Arc>();
         }
 
+        public void removeListChemin()
+        {
+            listChemin = new List<Arc>();
+        }
         public List<Arc> getListChemin()
         {
             return listChemin;

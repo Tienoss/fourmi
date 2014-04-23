@@ -142,19 +142,30 @@ namespace Fourmi
             int idRand = 0;
             do
             {
+                
                 listCheminPossible = listArc.FindAll(a => a.getSommet1().getId() == idSommetEnCours);
+                listCheminPossible.RemoveAll(c => fourmi.getListChemin().Contains(c));
                 // Affiche la liste des chemins possibles
                 /*foreach (Arc ar in listCheminPossible)
                 {
                     Console.WriteLine("s1: " + ar.getSommet1().getId() + ":" + ar.getSommet1().getNom() + " - s2: " + ar.getSommet2().getId() + ":" + ar.getSommet2().getNom() + " - tps: " + ar.getTemps());
                 }*/
-                idRand = rdm.Next(0, listCheminPossible.Count());
-                idSommetEnCours = listCheminPossible.ElementAt(idRand).getSommet2().getId();
-                fourmi.setChemin(listCheminPossible.ElementAt(idRand));
-                //Console.WriteLine(listCheminPossible.ElementAt(idRand).getSommet1().getId() + " -> " + listCheminPossible.ElementAt(idRand).getSommet2().getId());
+                if (listCheminPossible.Count() != 0)
+                {
+                    idRand = rdm.Next(0, listCheminPossible.Count());
+                    idSommetEnCours = listCheminPossible.ElementAt(idRand).getSommet2().getId();
+                    fourmi.setChemin(listCheminPossible.ElementAt(idRand));
+                    //Console.WriteLine(listCheminPossible.ElementAt(idRand).getSommet1().getId() + " -> " + listCheminPossible.ElementAt(idRand).getSommet2().getId());
+                }
+                else
+                {
+                    listCheminPossible = listArc.FindAll(a => a.getSommet1().getId() == idSommetEnCours);
+                    fourmi.removeListChemin();
+                }
             }
             while (idSommetEnCours != idSommetFin);
 
+                // ajouter les phéromones a listArc
                 foreach (Arc ar in fourmi.getListChemin())
                 {
                     Console.WriteLine("s1: " + ar.getSommet1().getId() + ":" + ar.getSommet1().getNom() + " - s2: " + ar.getSommet2().getId() + ":" + ar.getSommet2().getNom() + " - tps: " + ar.getTemps());
