@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 namespace Fourmi
 {
     class Sommet
-    {
-        public List<Sommet> listSommet;
-        
+    {        
         private int id;
         private string nom;
         private int coordX;
@@ -39,21 +37,6 @@ namespace Fourmi
             this.id = id;
             this.coordX = coordX;
             this.coordY = coordY;
-        }
-
-        public List<Sommet> getListSommet()
-        {
-            return listSommet;
-        }
-
-        public void setSommet(Sommet sommet)
-        {
-            this.listSommet.Add(sommet);
-        }
-
-        public bool removeSommet(Sommet sommet)
-        {
-            return this.listSommet.Remove(sommet);
         }
     }
 }

@@ -11,9 +11,15 @@ namespace Fourmi
     {
         static void Main(string[] args)
         {
+
+            #region Déclaration des variables
+
             List<Sommet> listSommet = new List<Sommet>();
             List<Sommet> listCoord = new List<Sommet>();
             List<Arc> listArc = new List<Arc>();
+
+
+            #endregion
 
             #region Récupération des données
 
@@ -47,11 +53,8 @@ namespace Fourmi
                 {
 
                     int index = listSommet.FindIndex(s => s.getId() == int.Parse(values[0]));
-                    Sommet sommet = new Sommet(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
-                    sommet.SetId(listSommet.ElementAt(index).getId());
-                    sommet.SetNom(listSommet.ElementAt(index).getNom());
-                    listSommet.Add(sommet);
-                    listSommet.RemoveAt(index);
+                    listSommet.ElementAt(index).SetCoordX(int.Parse(values[1]));
+                    listSommet.ElementAt(index).SetCoordY(int.Parse(values[2]));
                 }
 
                 count++;
@@ -116,19 +119,46 @@ namespace Fourmi
 
             #endregion
 
-            #region 
+            #region Sélection du départ et de l'arrivée
 
             // Choisir 2 sommets au hasard, 375 sommets en tout
             Random rdm = new Random(unchecked((int)DateTime.Now.Ticks));
-            int idSommet1 = rdm.Next(0, 375);
-            int idSommet2 = rdm.Next(0, 375);
-
-
+            int idSommetDebut = rdm.Next(0, 375);
+            int idSommetFin = rdm.Next(0, 375);
 
             #endregion
 
             //roue biaisée - sélection du chemin
+            List<Fourmi> listFourmi = new List<Fourmi>();
 
+            Fourmi fourmi = new Fourmi();
+            arc = new Arc();
+            List<Arc> listCheminPossible = new List<Arc>();
+            
+            Console.WriteLine("sommet de départ : " + idSommetDebut);
+            Console.WriteLine("sommet d'arrivée : " + idSommetFin);
+
+            int idSommetEnCours = idSommetDebut;
+            int idRand = 0;
+            do
+            {
+                listCheminPossible = listArc.FindAll(a => a.getSommet1().getId() == idSommetEnCours);
+                // Affiche la liste des chemins possibles
+                /*foreach (Arc ar in listCheminPossible)
+                {
+                    Console.WriteLine("s1: " + ar.getSommet1().getId() + ":" + ar.getSommet1().getNom() + " - s2: " + ar.getSommet2().getId() + ":" + ar.getSommet2().getNom() + " - tps: " + ar.getTemps());
+                }*/
+                idRand = rdm.Next(0, listCheminPossible.Count());
+                idSommetEnCours = listCheminPossible.ElementAt(idRand).getSommet2().getId();
+                fourmi.setChemin(listCheminPossible.ElementAt(idRand));
+                //Console.WriteLine(listCheminPossible.ElementAt(idRand).getSommet1().getId() + " -> " + listCheminPossible.ElementAt(idRand).getSommet2().getId());
+            }
+            while (idSommetEnCours != idSommetFin);
+
+                foreach (Arc ar in fourmi.getListChemin())
+                {
+                    Console.WriteLine("s1: " + ar.getSommet1().getId() + ":" + ar.getSommet1().getNom() + " - s2: " + ar.getSommet2().getId() + ":" + ar.getSommet2().getNom() + " - tps: " + ar.getTemps());
+                }
 
         }
 

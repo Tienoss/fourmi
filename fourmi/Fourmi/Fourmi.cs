@@ -9,16 +9,19 @@ namespace Fourmi
     class Fourmi
     {
         private List<Arc> listChemin;
-        
 
-        public Fourmi() { }
+        public Fourmi() {
+            listChemin = new List<Arc>();
+        }
 
-        public Sommet getNextSommet(Sommet sommet)
+        public List<Arc> getListChemin()
         {
-            Sommet nextSommet = new Sommet();
+            return listChemin;
+        }
 
-
-            return nextSommet;
+        public void setChemin(Arc arc)
+        {
+            listChemin.Add(arc);
         }
 
     }
