@@ -18,14 +18,28 @@ namespace Fourmi
         public float getTemps() { return temps; }
         public int getPheromone() { return pheromone; }
 
-        public Arc() { }
+        public void augmentePheromone()
+        {
+            pheromone += 3;
+        }
+        public void diminuePheromone()
+        {
+            if (pheromone > 1)
+                pheromone -= 1;
+            else
+                pheromone = 1;
+        }
+
+        public Arc() {
+            this.pheromone = 1;
+        }
 
         public Arc(Sommet sommet1, Sommet sommet2, float temps)
         {
             this.sommet1 = sommet1;
             this.sommet2 = sommet2;
             this.temps = temps;
-            this.pheromone = 0;
+            this.pheromone = 1;
         }
 
 

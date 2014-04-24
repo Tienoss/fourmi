@@ -17,7 +17,13 @@ namespace Fourmi
             List<Sommet> listSommet = new List<Sommet>();
             List<Sommet> listCoord = new List<Sommet>();
             List<Arc> listArc = new List<Arc>();
+            List<Fourmi> listFourmi = new List<Fourmi>();
+            List<Arc> listCheminPossible;
+            List<Arc> listProbaChemin;
+            Fourmi fourmi;
+            float dureeMin;
 
+            int nbFourmi = 1000;
 
             #endregion
 
@@ -126,53 +132,113 @@ namespace Fourmi
             int idSommetDebut = rdm.Next(0, 375);
             int idSommetFin = rdm.Next(0, 375);
 
+            //idSommetDebut = 48;
+            //idSommetFin = 16;
             #endregion
 
-            //roue biaisée - sélection du chemin
-            List<Fourmi> listFourmi = new List<Fourmi>();
+            #region 
 
-            Fourmi fourmi = new Fourmi();
-            arc = new Arc();
-            List<Arc> listCheminPossible = new List<Arc>();
-            
-            Console.WriteLine("sommet de départ : " + idSommetDebut);
-            Console.WriteLine("sommet d'arrivée : " + idSommetFin);
+            //sélection du chemin
 
-            int idSommetEnCours = idSommetDebut;
-            int idRand = 0;
-            do
+            Console.WriteLine("sommet de départ : " + idSommetDebut + " - " + listSommet.Find(s => s.getId() == idSommetDebut).getNom());
+            Console.WriteLine("sommet d'arrivée : " + idSommetFin + " - " + listSommet.Find(s => s.getId() == idSommetFin).getNom());
+
+            dureeMin = -1;
+
+            // boucle sur le nombre de Fourmi
+            for (int i = 0; i < nbFourmi; i++)
             {
-                
-                listCheminPossible = listArc.FindAll(a => a.getSommet1().getId() == idSommetEnCours);
-                listCheminPossible.RemoveAll(c => fourmi.getListChemin().Contains(c));
-                // Affiche la liste des chemins possibles
-                /*foreach (Arc ar in listCheminPossible)
+                fourmi = new Fourmi();
+                listCheminPossible = new List<Arc>();
+
+                int idSommetEnCours = idSommetDebut;
+                int idRand = 0;
+
+                #region Sélection du parcours
+                //choisir un parcours jusqu'à ce que le sommet en cours soit le sommet d'arrivée
+                do
                 {
-                    Console.WriteLine("s1: " + ar.getSommet1().getId() + ":" + ar.getSommet1().getNom() + " - s2: " + ar.getSommet2().getId() + ":" + ar.getSommet2().getNom() + " - tps: " + ar.getTemps());
-                }*/
-                if (listCheminPossible.Count() != 0)
-                {
-                    idRand = rdm.Next(0, listCheminPossible.Count());
-                    idSommetEnCours = listCheminPossible.ElementAt(idRand).getSommet2().getId();
-                    fourmi.setChemin(listCheminPossible.ElementAt(idRand));
-                    //Console.WriteLine(listCheminPossible.ElementAt(idRand).getSommet1().getId() + " -> " + listCheminPossible.ElementAt(idRand).getSommet2().getId());
-                }
-                else
-                {
+                    //récupérer la liste des arcs depuis le sommet actuel et suppression des arcs déjà parcouru de cette liste
                     listCheminPossible = listArc.FindAll(a => a.getSommet1().getId() == idSommetEnCours);
-                    fourmi.removeListChemin();
+                    listCheminPossible.RemoveAll(c => fourmi.getListChemin().Contains(c));
+
+                    listProbaChemin = new List<Arc>();
+
+                    //si la liste des chemins possible est > 0 alors on choisi le prochain sommet
+                    if (listCheminPossible.Count() != 0)
+                    {
+                        foreach(Arc chemin in listCheminPossible)
+                        {
+                            for(int j = 0; j < chemin.getPheromone(); j++)
+                            {
+                                listProbaChemin.Add(chemin);
+                            }
+                        }
+
+                        idRand = rdm.Next(0, listProbaChemin.Count());
+                        idSommetEnCours = listProbaChemin.ElementAt(idRand).getSommet2().getId();
+                        //on garde l'historique du parcours
+                        fourmi.setChemin(listProbaChemin.ElementAt(idRand));
+                    }
+                    else
+                    {
+                        //sinon on réinitialise le parcours de la fourmi
+                        idSommetEnCours = idSommetDebut;
+                        fourmi.removeListChemin();
+                    }
                 }
-            }
-            while (idSommetEnCours != idSommetFin);
+                while (idSommetEnCours != idSommetFin);
+
+                listFourmi.Add(fourmi);
+
+                #endregion
 
                 // ajouter les phéromones a listArc
+                //récupérer la liste des arc de listChemin et ajouter des phéromones aux arcs correspondants dans listArc
                 foreach (Arc ar in fourmi.getListChemin())
                 {
-                    Console.WriteLine("s1: " + ar.getSommet1().getId() + ":" + ar.getSommet1().getNom() + " - s2: " + ar.getSommet2().getId() + ":" + ar.getSommet2().getNom() + " - tps: " + ar.getTemps());
+                    listArc.Find(a => a == ar).augmentePheromone();
                 }
 
-        }
+                foreach (Arc ar in fourmi.getListChemin())
+                {
+                    listArc.Find(a => a == ar).diminuePheromone();
+                }
 
-        
+                if (dureeMin == -1 || fourmi.getDuree() < dureeMin)
+                {
+                    dureeMin = fourmi.getDuree();
+                }
+            }
+            
+            #endregion
+
+            Fourmi fourmiMin;
+            fourmiMin = listFourmi.Find(f => f.getDuree() == listFourmi.Min(fo => fo.getDuree()));
+
+            foreach (Arc ar in fourmiMin.getListChemin())
+            {
+                Console.WriteLine("s1: " + ar.getSommet1().getId() + ":" + ar.getSommet1().getNom() + " - s2: " + ar.getSommet2().getId() + ":" + ar.getSommet2().getNom() + " - tps: " + ar.getTemps());
+            }
+
+            foreach (Fourmi f in listFourmi)
+            {
+                Console.WriteLine(listFourmi.FindIndex(fo => fo == f).ToString() +
+                    " - Durée min : " + f.getDuree() +
+                    " - Nombre de chemin : " + f.getListChemin().Count());
+            }
+
+            Console.WriteLine(listFourmi.FindIndex(fo => fo == fourmiMin).ToString() +
+                    " - Durée min : " + fourmiMin.getDuree() +
+                    " - Nombre de chemin : " + fourmiMin.getListChemin().Count());
+            /*foreach (Fourmi fourm in listFourmi)
+            {
+                Console.WriteLine("\nDurée : " +
+                    "\nsecondes : " + fourmi.getDuree() +
+                    "\nminutes : " + fourmi.getDuree() / 60 +
+                    "\nheures : " + fourmi.getDuree() / 60 / 60);
+            }*/
+
+        }
     }
 }
